@@ -98,4 +98,8 @@ class PlanesController extends Controller
     {
         //
     }
+
+    public function pepe(){
+        //
+    }
 }
