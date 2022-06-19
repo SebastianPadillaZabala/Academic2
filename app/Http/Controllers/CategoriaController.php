@@ -93,7 +93,7 @@ class CategoriaController extends Controller
         $categorias = Categoria::all();
         if(auth()->user()){
         if(auth()->user()->tipo == 'Alumno'){
-            return view('alumno.categorias',['categorias' => $categorias]);
+            return view('layouts.categorias',['categorias' => $categorias]);
         
         }else{ 
             if(auth()->user()->tipo == 'Admin'){

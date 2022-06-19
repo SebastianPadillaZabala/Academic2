@@ -11,6 +11,7 @@ use App\Http\Controllers\PlanesController;
 use App\Http\Controllers\ClasesController;
 use App\Http\Livewire\ListaCurso;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\SuscripcionController;
 use Illuminate\Support\Facades\Log;
 /*
 |--------------------------------------------------------------------------
@@ -61,6 +62,7 @@ Route::post('/registerProfe',[ProfesoresController::class, 'create'])
 Route::get('/profesor', function () {
     return view('backoffice.pages.profesor.dashboard');
 })->name('profesor.dashboard');
+
 //REGISTRAR CURSO
 Route::get('/regcursp',[CursosController::class, 'index'])
 ->name('regCurso');
@@ -86,7 +88,9 @@ Route::get('/alumno', function () {
 })->name('alumno.dashboard');
 
 
-
+Route::get('/modal', function () {
+    return view('modal');
+})->name('#');
 
 Route::get('/Categorias',[CategoriaController::class, 'categorias'])
 ->name('categorias');
@@ -101,13 +105,6 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
 })->name('dashboard');
 
 
-
-
-
-Route::get('/video', function () {
-    return view('video.reproductor');
-})->name('video');
-
 /////PLANES
 Route::get('/planes',[PlanesController::class, 'index'])
 ->name('planes');
@@ -118,30 +115,57 @@ Route::get('/Addplan',[PlanesController::class, 'create'])
 Route::post('/Rplan',[PlanesController::class, 'store'])
 ->name('Rplan');
 
+///Reproduccion de clases y clases
 Route::get('/prueba/{cat}', [CursosController::class, 'livewire'])
 ->name('prueba');
-
-Route::get('/equipo', function () {
-    return view('grupo');
-})->name('grupo');
-
-Route::get('/redirect',[LoginController::class, 'index'])
-->name('re');
 
 Route::get('/clase/{id}',[ClasesController::class, 'redirect'])
 ->name('clase');
 
+Route::get('/video', function () {
+    return view('video.reproductor');
+})->name('video');
+
 Route::get('/curso/clase/{id}',[ClasesController::class, 'redirectClase'])
 ->name('claseR');
 
-Route::get('logs', [\Rap2hpoutre\LaravelLogViewer\LogViewerController::class, 'index']);
+Route::get('/video', function () {
+    return view('video.reproductor');
+})->name('video');
 
+///EQUIPO-SOBRE NOSOTROS
+Route::get('/equipo', function () {
+    return view('grupo');
+})->name('grupo');
+
+///Pagos-Suscripcion
+Route::get('/check-out/{id}', [PlanesController::class, 'pagos'])
+->name('check-out',);
+Route::post('/checkout/{id}',[SuscripcionController::class, 'store'])
+->name('checkout-input');
+
+///Otros
+Route::get('/redirect',[LoginController::class, 'index'])
+->name('re');
+
+///Bitacora
+Route::get('/private00', function () {
+    return view('backoffice.pages.admin.passwordbitacora');
+})->name('logBit');
+
+Route::post('/private0101',[LoginController::class, 'loginBitacora'])
+->name('logBitacora');
+
+Route::get('logs', [\Rap2hpoutre\LaravelLogViewer\LogViewerController::class, 'index'])->name('bitacora');
+
+//Reportes
 Route::get('/reportes',function () {
     return view('backoffice.layouts.reporte');
 })->name('reporte');
 Route::post('/reportes',[ReportesController::class, 'validar'])->name('reporte.validar');
 Route::get('/reportePDF',[ReportesController::class, 'index'])->name('reporte.index');
 
+//ROLES
 Route::group(['middleware' => ['auth'],'as' => 'backoffice.'],function (){
     Route::resource('role','App\Http\Controllers\RoleController');
     Route::get('user/{user}/assign_role','App\Http\Controllers\UserController@assign_role')

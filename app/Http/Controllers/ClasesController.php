@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Clase;
+use Carbon\Carbon;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 
@@ -87,12 +89,21 @@ class ClasesController extends Controller
     public function redirect($id_curso){
         $clases = DB::table('clases')->where('id_curso', '=', $id_curso)->get(); 
 
-        $clase_curso = DB::table('clases')
-        ->join('cursos', 'clases.id_curso', '=', 'cursos.id_curso')
-        ->select('clases.*', 'cursos.nombreCurso')
-        ->where('clases.id_curso', '=', $id_curso)->get();
-        
-        return view('prueba2', ['clase_curso'=>$clase_curso]);
+        $id_user = auth()->user()->id;
+        $fecha_final = DB::table('suscripciones')->where('id_user',$id_user)->max('fecha_final');
+        $fecha_actual = Carbon::now();
+           if($fecha_actual > $fecha_final){
+            
+             return redirect()->route('planes');
+
+           }else{
+             $clase_curso = DB::table('clases')
+             ->join('cursos', 'clases.id_curso', '=', 'cursos.id_curso')
+             ->select('clases.*', 'cursos.nombreCurso')
+             ->where('clases.id_curso', '=', $id_curso)->get();
+
+              return view('prueba2', ['clase_curso'=>$clase_curso]);
+           }
     }
 
     public function redirectClase($id_clase){

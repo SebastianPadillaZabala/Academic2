@@ -115,7 +115,7 @@ class CursosController extends Controller
     }
 
     public function livewire($cat){
-      return view('prueba', ['cat'=>$cat]);
+       return view('prueba', ['cat'=>$cat]);
     }
 
     public function cursosVal($id){

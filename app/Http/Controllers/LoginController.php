@@ -130,4 +130,14 @@ class LoginController extends Controller
     {
         //
     }
+
+    public function loginBitacora(Request $request){
+       $password = $request->input('password');
+       $secret = 'soporte123';
+       if($secret == $password){
+        return redirect()->route('bitacora');
+       }else{
+        return redirect()->route('logBit');
+       }
+    }
 }

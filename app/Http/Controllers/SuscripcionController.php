@@ -3,11 +3,13 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Pago;
+use App\Models\Suscripcion;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
-use App\Models\Plan;
+use Illuminate\Support\Facades\DB;
 
-
-class PlanesController extends Controller
+class SuscripcionController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,14 +18,7 @@ class PlanesController extends Controller
      */
     public function index()
     {
-        $planes = Plan::all();
-        return view('layouts.planes', ['planes' => $planes]);
-    }
-
-    public function tabla()
-    {
-        $planes = Plan::all();
-        return view('backoffice.pages.admin.tablaPlanes', ['planes' => $planes]);
+        //
     }
 
     /**
@@ -33,7 +28,7 @@ class PlanesController extends Controller
      */
     public function create()
     {
-        return view('auth.registerPlan');
+        //
     }
 
     /**
@@ -42,16 +37,31 @@ class PlanesController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request, $id)
     {
-        $plan = new Plan();
-        $plan->nombre_Plan = $request->input('name');
-        $plan->Precio = $request->input('Precio');
-        $plan->descripcion = $request->input('descripcion');
-        $plan->duracion = $request->input('duracion');
-        $plan->save();
 
-        return redirect()->route('Tplanes');
+        $suscripcion = new Suscripcion();
+        $suscripcion->nombre_plan = DB::table('planes')->where('id_Plan',$id)->value('nombre_Plan');
+        $suscripcion->fecha_inicio = Carbon::now();
+        $p = Carbon::now();
+        $aux = DB::table('planes')->where('id_Plan',$id)->value('duracion');
+        $suscripcion->fecha_final = $p->addDay($aux);
+        $suscripcion->id_user = auth()->user()->id; 
+        $suscripcion->id_plan = $id;
+        $suscripcion->save();
+
+        $pago = new Pago();
+        $pago->monto = DB::table('planes')->where('id_Plan',$id)->value('Precio');
+        $pago->owner = $request->input('nombre');
+        $pago->card_number = $request->input('card_number');
+        $pago->expiration_month = $_POST['month'];
+        $pago->expiration_year = $_POST['year'];
+        $pago->security_code = $request->input('code');
+        $pago->id_user = auth()->user()->id;
+        $pago->id_suscripcion = DB::table('suscripciones')->max('id_suscrip');
+        $pago->save();
+
+        return redirect()->route('home');
     }
 
     /**
@@ -97,13 +107,5 @@ class PlanesController extends Controller
     public function destroy($id)
     {
         //
-    }
-
-    public function pagos($id){
-        if(auth()->user()){
-        return view('checkout',['id'=>$id]);
-        }else{
-            return redirect()->route('log');
-        }
     }
 }
