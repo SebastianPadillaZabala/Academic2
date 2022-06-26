@@ -9,6 +9,8 @@ use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
+use Illuminate\Support\Facades\Log;
+
 class SuscripcionController extends Controller
 {
     /**
@@ -46,7 +48,7 @@ class SuscripcionController extends Controller
         $p = Carbon::now();
         $aux = DB::table('planes')->where('id_Plan',$id)->value('duracion');
         $suscripcion->fecha_final = $p->addDay($aux);
-        $suscripcion->id_user = auth()->user()->id; 
+        $suscripcion->id_user = auth()->user()->id;
         $suscripcion->id_plan = $id;
         $suscripcion->save();
 
@@ -60,6 +62,14 @@ class SuscripcionController extends Controller
         $pago->id_user = auth()->user()->id;
         $pago->id_suscripcion = DB::table('suscripciones')->max('id_suscrip');
         $pago->save();
+
+        $user = Auth::user();
+        $info = [
+            'id usuario' => $user->id,
+            'tipo usuario' => $user->tipo,
+            'antiguo registro' => $suscripcion,
+        ];
+        Log::channel('mydailylogs')->info('Realizar Suscripcion: ', $info);
 
         return redirect()->route('home');
     }

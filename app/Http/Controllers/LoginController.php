@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
+
 use Illuminate\Support\Facades\Log;
 
 class LoginController extends Controller
@@ -21,7 +22,7 @@ class LoginController extends Controller
 
         }
         if(auth()->user()->tipo == 'Profesor'){
-            return redirect()->route('profesor.dashboard'); 
+            return redirect()->route('profesor.dashboard');
         }
         if(auth()->user()->tipo == 'Alumno'){
             return redirect()->route('alumno.dashboard');
@@ -47,22 +48,23 @@ class LoginController extends Controller
             'email' => $email,
             'password' => $pass
             );
-            $auth = Auth::attempt($credentials); 
+            $auth = Auth::attempt($credentials);
          if($auth){
             $user = Auth::user();
             $tipo = $user->tipo;
             $info = [
                 'IP' => $request->getClientIp(),
-                'id' => $user->id,
+                'id usuario' => $user->id,
                 'email' => $user->email,
-                'tipo' => $tipo,
+                'tipo usuario' => $tipo,
             ];
             Log::channel('mydailylogs')->info('Inicio de sesion: ', $info);
+
             if ($tipo == 'Alumno') {
                 return redirect()->route('alumno.dashboard');
             }else{
                 if($tipo == 'Profesor'){
-                    return view('backoffice.pages.profesor.dashboard');    
+                    return view('backoffice.pages.profesor.dashboard');
                 }
                 return view('backoffice.pages.admin.dashboard');
             }
@@ -70,9 +72,9 @@ class LoginController extends Controller
            return back()->withErrors([
             'message' => 'El usuario o la contraseña son incorrectos'
         ]);
-        
+
         }
-      
+
     }
 
     /**
@@ -134,7 +136,17 @@ class LoginController extends Controller
     public function loginBitacora(Request $request){
        $password = $request->input('password');
        $secret = 'soporte123';
+
        if($secret == $password){
+
+        $user = Auth::user();
+        $info = [
+            'IP' => $request->getClientIp(),
+            'id usuario' => $user->id,
+            'tipo usuario' => $user->tipo,
+        ];
+        Log::channel('mydailylogs')->info('Acceso a bitacora: ', $info);
+
         return redirect()->route('bitacora');
        }else{
         return redirect()->route('logBit');
