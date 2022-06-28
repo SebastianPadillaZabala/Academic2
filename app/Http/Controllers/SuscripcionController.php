@@ -3,12 +3,15 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Pago;
+use App\Models\Suscripcion;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
-use App\Models\Categoria;
+use Illuminate\Support\Facades\DB;
 
 use Illuminate\Support\Facades\Log;
 
-class CategoriaController extends Controller
+class SuscripcionController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -17,7 +20,7 @@ class CategoriaController extends Controller
      */
     public function index()
     {
-          //
+        //
     }
 
     /**
@@ -27,7 +30,7 @@ class CategoriaController extends Controller
      */
     public function create()
     {
-        return view('admin.registerCat');
+        //
     }
 
     /**
@@ -36,24 +39,39 @@ class CategoriaController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request, $id)
     {
-        $categoria = new Categoria();
-        $categoria->nombreCategoria = $request->input('nombre');
-        $categoria->descripcion = $request->input('descripcion');
-        $categoria->save();
+
+        $suscripcion = new Suscripcion();
+        $suscripcion->nombre_plan = DB::table('planes')->where('id_Plan',$id)->value('nombre_Plan');
+        $suscripcion->fecha_inicio = Carbon::now();
+        $p = Carbon::now();
+        $aux = DB::table('planes')->where('id_Plan',$id)->value('duracion');
+        $suscripcion->fecha_final = $p->addDay($aux);
+        $suscripcion->id_user = auth()->user()->id;
+        $suscripcion->id_plan = $id;
+        $suscripcion->save();
+
+        $pago = new Pago();
+        $pago->monto = DB::table('planes')->where('id_Plan',$id)->value('Precio');
+        $pago->owner = $request->input('nombre');
+        $pago->card_number = $request->input('card_number');
+        $pago->expiration_month = $_POST['month'];
+        $pago->expiration_year = $_POST['year'];
+        $pago->security_code = $request->input('code');
+        $pago->id_user = auth()->user()->id;
+        $pago->id_suscripcion = DB::table('suscripciones')->max('id_suscrip');
+        $pago->save();
 
         $user = Auth::user();
         $info = [
-            'IP' => $request->getClientIp(),
             'id usuario' => $user->id,
             'tipo usuario' => $user->tipo,
-            'nuevo registro' => $categoria,
+            'antiguo registro' => $suscripcion,
         ];
-        Log::channel('mydailylogs')->info('Crear Categoria: ', $info);
+        Log::channel('mydailylogs')->info('Realizar Suscripcion: ', $info);
 
-
-        return redirect()->route('Allcategoriastable');
+        return redirect()->route('home');
     }
 
     /**
@@ -99,27 +117,5 @@ class CategoriaController extends Controller
     public function destroy($id)
     {
         //
-    }
-
-    public function categorias(){
-        $categorias = Categoria::all();
-        if(auth()->user()){
-        if(auth()->user()->tipo == 'Alumno'){
-            return view('layouts.categorias',['categorias' => $categorias]);
-
-        }else{
-            if(auth()->user()->tipo == 'Admin'){
-                return view('backoffice.pages.admin.tablaCategorias',['categorias' => $categorias]);
-            }
-            return view('backoffice.pages.profesor.categorias',['categorias' => $categorias]);
-
-        }
-      }
-    return view('layouts.categorias', ['categorias' => $categorias]);
-    }
-
-    public function categoriasTable(){
-        $categorias = Categoria::all();
-        return view('backoffice.pages.admin.tablaCategorias',['categorias'=>$categorias]);
     }
 }

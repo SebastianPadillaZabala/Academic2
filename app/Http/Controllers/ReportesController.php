@@ -23,6 +23,8 @@ use Barryvdh\DomPDF\PDF;
 use Illuminate\Support\Facades\DB;
 use Maatwebsite\Excel\Facades\Excel;
 
+use Illuminate\Support\Facades\Log;
+
 class ReportesController extends Controller
 {
     //
@@ -111,7 +113,7 @@ class ReportesController extends Controller
         //return view('admin.reporte',['query' => $query, 'datos' => $datos);
     }
 
-    
+
 
     public function otros($datos)
     {
