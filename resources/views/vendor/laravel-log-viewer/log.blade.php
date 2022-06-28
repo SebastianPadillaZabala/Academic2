@@ -68,7 +68,10 @@
     }
     .list-group {
             padding: 5px;
-    }
+        }
+
+
+
 
     /**
     * DARK MODE CSS
@@ -170,12 +173,9 @@
 <div class="container-fluid">
   <div class="row">
     <div class="col sidebar mb-3">
-      <h1><i class="fa fa-calendar" aria-hidden="true"></i> Log Viewer</h1>
-      <a href="{{route('admin.dashboard')}}">
-      <button type="button"
-          class="py-2.5 px-5 mr-2 mb-2 text-sm font-medium text-gray-900 focus:outline-none bg-black rounded-lg border border-gray-300 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700"
-            >SALIR</button>         
-      </a>  
+      <h1><i class="fa fa-calendar" aria-hidden="true"></i> Laravel Log Viewer</h1>
+
+
       <div class="custom-control custom-switch" style="padding-bottom:20px;">
         <input type="checkbox" class="custom-control-input" id="darkSwitch">
         <label class="custom-control-label" for="darkSwitch" style="margin-top: 6px;">Dark Mode</label>
@@ -209,7 +209,7 @@
           <tr>
             @if ($standardFormat)
               <th>Level</th>
-              <th>Context</th>
+
               <th>Date</th>
             @else
               <th>Line number</th>
@@ -225,7 +225,7 @@
                 <td class="nowrap text-{{{$log['level_class']}}}">
                   <span class="fa fa-{{{$log['level_img']}}}" aria-hidden="true"></span>&nbsp;&nbsp;{{$log['level']}}
                 </td>
-                <td class="text">{{$log['context']}}</td>
+
               @endif
               <td class="date">{{{$log['date']}}}</td>
               <td class="text">
@@ -252,7 +252,6 @@
           </tbody>
         </table>
       @endif
-
     </div>
   </div>
 </div>

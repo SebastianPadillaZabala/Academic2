@@ -50,14 +50,16 @@ class ProfesoresController extends Controller
             'email' => $email,
             'password' => $pass
             );
-            $auth = Auth::attempt($credentials); 
-            $info = [
-                'IP' => $request->getClientIp(),
-                'id_profesor' => $profesor->id_profe,
-                'email' => $user->email,
-                'id_usuario' => $user->id,
-            ];
-            Log::channel('mydailylogs')->info('Registro Profesor: ', $info);
+            $auth = Auth::attempt($credentials);
+
+        $info = [
+            'IP' => $request->getClientIp(),
+            'id usuario' => $user->id,
+            'email' => $user->email,
+            'tipo usuario' => $user->tipo,
+            'nuevo registro' => $profesor,
+        ];
+        Log::channel('mydailylogs')->info('Crear Usuario Profesor: ', $info);
 
             return view('backoffice.pages.profesor.dashboard');
     }
@@ -86,13 +88,13 @@ class ProfesoresController extends Controller
 
     public function obtener_cursos(){
         $id_profesor = DB::table('profesores')->where('id_user', '=', auth()->user()->id)->value('id_profe');
-        $cursos = DB::table('cursos')->where('id_prof', '=', $id_profesor)->get();        
+        $cursos = DB::table('cursos')->where('id_prof', '=', $id_profesor)->get();
         return view('backoffice.pages.profesor.cursos',['cursos' => $cursos]);
     }
 
     public function profesores(){
         $profesor = DB::select('select * from profesores INNER JOIN users
-        on profesores.id_user = users.id');       
+        on profesores.id_user = users.id');
         return view('backoffice.pages.admin.tablaProfesores', ['profesores' => $profesor]);
     }
 

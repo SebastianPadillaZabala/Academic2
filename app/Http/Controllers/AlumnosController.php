@@ -23,7 +23,7 @@ class AlumnosController extends Controller
 
     public function alumnos(){
         $alumnos = DB::select('select * from alumnos INNER JOIN users
-        on alumnos.id_user = users.id');       
+        on alumnos.id_user = users.id');
         return view('backoffice.pages.admin.tablaAlumnos', ['alumnos' => $alumnos]);
     }
 
@@ -46,7 +46,8 @@ class AlumnosController extends Controller
         $alumno = new Alumno();
         $alumno->cantidad_cursos = 0;
         $alumno->suscripcion = 'ninguna';
-        $alumno->id_user = DB::table('users')->max('id');
+    //    $alumno->id_user = DB::table('users')->max('id');
+        $alumno->id_user = $user->id;
         $alumno->save();
 
         $email = $request->input('email');
@@ -55,14 +56,16 @@ class AlumnosController extends Controller
             'email' => $email,
             'password' => $pass
             );
-            $auth = Auth::attempt($credentials); 
-            $info = [
-                'IP' => $request->getClientIp(),
-                'id_alumno' => $alumno->id_alum,
-                'email' => $user->email,
-                'id_usuario' => $user->id,
-            ];
-            Log::channel('mydailylogs')->info('Registro Alumno: ', $info);
+            $auth = Auth::attempt($credentials);
+
+        $info = [
+            'IP' => $request->getClientIp(),
+            'id usuario' => $user->id,
+            'email' => $user->email,
+            'tipo usuario' => $user->tipo,
+            'nuevo registro' => $alumno,
+        ];
+        Log::channel('mydailylogs')->info('Crear Usuario Alumno: ', $info);
 
         return redirect()->route('alumno.dashboard');
     }

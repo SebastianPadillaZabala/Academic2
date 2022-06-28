@@ -54,7 +54,7 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    static public $atributos = ['name','email','apellido','celular','tipo',];
+    static public $atributos = ['name','email','apellido','celular','tipo'];
     /**
      * The accessors to append to the model's array form.
      *
