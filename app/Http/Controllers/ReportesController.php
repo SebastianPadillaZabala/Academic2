@@ -56,22 +56,22 @@ class ReportesController extends Controller
             case 'users':
                 return User::$atributos;
                 break;
-            case 'alumnos':
+            case 'clientes':
                 return Alumno::$atributos;
                 break;
-            case 'profesores':
+            case 'proveedors':
                 return Profesor::$atributos;
                 break;
-            case 'cursos':
+            case 'productos':
                 return Curso::$atributos;
                 break;
-            case 'clases':
+            case 'materia_primas':
                 return Clase::$atributos;
                 break;
-            case 'categoria':
+            case 'maquinarias':
                 return Categoria::$atributos;
                 break;
-            case 'planes':
+            case 'distribuidors':
                 return Plan::$atributos;
                 break;
             default:

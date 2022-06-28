@@ -44,7 +44,7 @@ class Reporte extends Component
                 "Modelo" =>  "Curso"
             ],
             [
-                "id" => 'planes',
+                "id" => 'plan',
                 "Modelo" =>  "Planes"
             ],
             [
@@ -52,7 +52,7 @@ class Reporte extends Component
                 "Modelo" =>  "Profesor"
             ],
             [
-                "id" => 'Categorias',
+                "id" => 'Categoria',
                 "Modelo" =>  "Categoria"
             ],
         ];
@@ -86,7 +86,7 @@ class Reporte extends Component
             case 'planes':
                 $this->atributosM = Plan::$atributos;
                 break;
-            case 'categoria':
+            case 'categorias':
                 $this->atributosM = Categoria::$atributos;
                 break;
             case 'clases':
