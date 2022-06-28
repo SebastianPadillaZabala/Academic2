@@ -96,7 +96,7 @@
                             <p class="text-xl text-white font-bold mb-2">{{$curso->nombreCurso}}</p>
                             <p class="text-base text-gray-400 font-normal">{{$curso->descripcion}}</p>
                             <p class="text-base text-gray-400 font-normal">__________________</p>
-                            <button class=" w-3/12 h-41 mt-3 px-3 py-2 text-sm font-medium leading-5 text-center text-white transition-colors duration-200 transform bg-gray-500 rounded-md hover:bg-indigo-600 md:mx-2 md:w-auto">Continuar</button>
+                            <button class=" w-3/12 h-41 mt-3 px-3 py-2 text-sm font-medium leading-5 text-center text-white transition-colors duration-200 transform bg-gray-500 rounded-md hover:bg-indigo-600 md:mx-2 md:w-auto"><a href="{{route('clase',[$curso->id_curso])}}">Continuar</a></button>
                         </div>
                     </div>
                     </div>

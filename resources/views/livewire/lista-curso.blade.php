@@ -1,7 +1,5 @@
 
 <div>
-    <form action="{{route('frontoffice.alumno.inscribir_curso')}}" method="post">
-        @csrf
         <div class="px-10 py-20 bg-white grid gap-10 lg:grid-cols-3 xl:grid-cols-4 sm:grid-cols-2">
         @foreach($cursos as $c)
     <div class="max-w-sm bg-white px-6 pt-6 pb-2 rounded-xl shadow-lg transform hover:scale-105 transition duration-500">
@@ -38,18 +36,21 @@
           <p>Profe. {{$c->name}}</p>
         </div>
         @if(auth()->user())
-              <input type="hidden" name="curso_id" value="{{$c->id_curso}}">
-              <input type="hidden" name="alumno_id" value="{{auth()->user()->id}}">
-            @if(!auth()->user()->has_any_curso())
-              <button type="submit" class="mt-4 text-xl w-full text-white bg-indigo-600 py-2 rounded-xl shadow-lg">Agregar a mis cursos</button>
-              @endif
+              @if(!auth()->user()->has_curso($c->id_curso))
+              <form action="{{route('frontoffice.alumno.inscribir_curso')}}" method="post">
+                  @csrf
+                  <input type="hidden" name="curso_id" value="{{$c->id_curso}}">
+                  <input type="hidden" name="alumno_id" value="{{auth()->user()->id}}">
+                  <button type="submit" class="mt-4 text-xl w-full text-white bg-indigo-400  py-2 rounded-xl shadow-lg">Agregar a mis cursos</button>
+                  @endif
+            </form>
               <button class="mt-4 text-xl w-full text-white bg-indigo-600 py-2 rounded-xl shadow-lg"><a href="{{route('clase',[$c->id_curso])}}">Empezar</a></button>
         @endif
       </div>
     </div>
     @endforeach
     </div>
-    </form>
+
 </div>
 <script>
 

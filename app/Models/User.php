@@ -103,15 +103,15 @@ class User extends Authenticatable
         return $flag;
     }
     //asinacion de roles y permisos
-    public function has_any_curso(){
+    public function has_curso($idc){
         $flag=false;
         $id = Auth()->user()->id;
-        $curso = DB::select('SELECT * FROM  cursos_alumnos, cursos, alumnos
+        $curso = DB::select('SELECT id_curso FROM  cursos_alumnos, cursos, alumnos
                       where cursos.id_curso=cursos_alumnos.curso_id and  alumnos.id_alum=cursos_alumnos.alumno_id and alumnos.id_user = '. $id);
-        if (count($curso)>1)
-            $flag=true;
-        else
-            $flag=false;
-        return $flag;
+        foreach ($curso as $c){
+            if ($c->id_curso == $idc)
+                return true;
+        }
+        return false;
     }
 }
