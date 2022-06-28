@@ -25,7 +25,7 @@ class LoginController extends Controller
             return redirect()->route('profesor.dashboard');
         }
         if(auth()->user()->tipo == 'Alumno'){
-            return redirect()->route('alumno.dashboard');
+            return redirect()->route('frontoffice.alumno.index');
 
         }
     }
@@ -61,7 +61,7 @@ class LoginController extends Controller
             Log::channel('mydailylogs')->info('Inicio de sesion: ', $info);
 
             if ($tipo == 'Alumno') {
-                return redirect()->route('alumno.dashboard');
+                return redirect()->route('frontoffice.alumno.index');
             }else{
                 if($tipo == 'Profesor'){
                     return view('backoffice.pages.profesor.dashboard');

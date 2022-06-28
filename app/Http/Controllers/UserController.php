@@ -7,6 +7,7 @@ use App\Models\Permission;
 use App\Models\User;
 use App\Models\Role;
 
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Auth;
 
@@ -144,4 +145,5 @@ class UserController extends Controller
         $user->permissions()->sync($request->permissions);
         return redirect()->route('backoffice.user.show',$user);
     }
+
 }

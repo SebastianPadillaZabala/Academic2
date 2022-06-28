@@ -6,6 +6,7 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\DB;
 use Laravel\Fortify\TwoFactorAuthenticatable;
 use Laravel\Jetstream\HasProfilePhoto;
 //use Laravel\Sanctum\HasApiTokens;
@@ -102,4 +103,15 @@ class User extends Authenticatable
         return $flag;
     }
     //asinacion de roles y permisos
+    public function has_any_curso(){
+        $flag=false;
+        $id = Auth()->user()->id;
+        $curso = DB::select('SELECT * FROM  cursos_alumnos, cursos, alumnos
+                      where cursos.id_curso=cursos_alumnos.curso_id and  alumnos.id_alum=cursos_alumnos.alumno_id and alumnos.id_user = '. $id);
+        if (count($curso)>1)
+            $flag=true;
+        else
+            $flag=false;
+        return $flag;
+    }
 }

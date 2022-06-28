@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\User\ChangePasswordRequest;
 use Illuminate\Http\Request;
 use App\Models\Profesor;
 use App\Models\User;
@@ -130,5 +131,13 @@ class ProfesoresController extends Controller
     public function destroy($id)
     {
         //
+    }
+    public function edit_password(){
+        return view('frontoffice.pages.profile_profesor.edit_password');
+    }
+    public function change_password(ChangePasswordRequest $request){
+        $request->user()->password = Hash::make($request->password);
+        $request->user()->save();
+        return redirect()->back();
     }
 }

@@ -181,3 +181,9 @@ Route::group(['middleware' => ['auth'],'as' => 'backoffice.'],function (){
 
     Route::resource('user','App\Http\Controllers\UserController');
 });
+Route::group(['middleware'=>['auth'],'as'=>'frontoffice.'],function (){
+    Route::resource('alumno','App\Http\Controllers\AlumnosController');
+    Route::get('profile_alumno/edit_password','App\Http\Controllers\AlumnosController@edit_password')->name('alumno.edit_password');
+    Route::put('profile_alumno/change_password','App\Http\Controllers\AlumnosController@change_password')->name('alumno.change_password');
+    Route::post('alumno/inscribir_curso','App\Http\Controllers\AlumnosController@inscribirCurso')->name('alumno.inscribir_curso');
+});
