@@ -9,6 +9,8 @@ use App\Http\Controllers\ReportesController;
 use App\Http\Controllers\CursosController;
 use App\Http\Controllers\PlanesController;
 use App\Http\Controllers\ClasesController;
+use App\Http\Controllers\examenesController;
+use App\Http\Controllers\preguntasController;
 use App\Http\Livewire\ListaCurso;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Log;
@@ -157,3 +159,13 @@ Route::group(['middleware' => ['auth'],'as' => 'backoffice.'],function (){
 
     Route::resource('user','App\Http\Controllers\UserController');
 });
+
+//Examen
+    Route::get('/examenes',[examenesController::class, 'index'])
+    ->name('examen.crear');
+    Route::post('/examenes',[examenesController::class, 'create'])
+    ->name('examen.registrar');
+    Route::get('/preguntas',[preguntasController::class, 'index'])
+    ->name('preguntas.index');
+    Route::post('/preguntas',[preguntasController::class, 'create'])
+    ->name('pregunta.registrar');
