@@ -6,19 +6,24 @@
 
     <div class="image overflow-hidden">
         <img class="h-auto w-full mx-auto"
-             src="https://lavinephotography.com.au/wp-content/uploads/2017/01/PROFILE-Photography-112.jpg"
+             src="https://previews.123rf.com/images/hvostik/hvostik1607/hvostik160700078/61014335-estudiante-graduado-avatar-estudiante-icono-del-estudiante-estilo-de-dise%C3%B1o-plano-graduaci%C3%B3n-de-educ.jpg"
              alt="">
     </div>
     <h1 class="text-gray-900 font-bold text-xl leading-8 my-1">{{$alumno->name}}</h1>
-    <h3 class="text-gray-600 font-lg text-semibold leading-6">Nombre de pila.</h3>
-    <p class="text-sm text-gray-500 hover:text-gray-600 leading-6">Descripcion breve del perfil
+    <h3 class="text-gray-600 font-lg text-semibold leading-6">Bienvenido: {{auth()->user()->tipo}} </h3>
+    <p class="text-sm text-gray-500 hover:text-gray-600 leading-6">Estudiante apasionado por las nuevas tecnologias frontend.
     </p>
 @endsection
 @section('navbar')
-   <!-- <li class="flex items-center py-3">
-        <span><a href=""></a></span>
-    </li>
-    -->
+        <li class="flex items-center py-3">
+            <span><a href="{{route('frontoffice.alumno.index')}}">Ver tus datos</a></span>
+        </li>
+        <li class="flex items-center py-3">
+            <span><a href="{{route('frontoffice.alumno.edit_password')}}">Cambiar contraseña</a></span>
+        </li>
+        <li class="flex items-center py-3">
+            <span><a href="{{route('frontoffice.alumno.edit',auth()->user()->id)}}">Editar datos del perfil</a></span>
+        </li>
 @endsection
 @section('suscripcion')
     <li>

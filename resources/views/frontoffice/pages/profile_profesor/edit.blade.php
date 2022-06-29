@@ -2,15 +2,31 @@
 @section('profile_data')
     <div class="image overflow-hidden">
         <img class="h-auto w-full mx-auto"
-             src="https://lavinephotography.com.au/wp-content/uploads/2017/01/PROFILE-Photography-112.jpg"
+             src="https://previews.123rf.com/images/yupiramos/yupiramos1711/yupiramos171108094/89817780-dise%C3%B1o-de-ilustraci%C3%B3n-de-vector-de-profesor-de-avatar-masculino-maestro.jpg"
              alt="">
     </div>
     <h1 class="text-gray-900 font-bold text-xl leading-8 my-1">{{auth()->user()->name}}</h1>
-    <h3 class="text-gray-600 font-lg text-semibold leading-6">Nombre de pila.</h3>
+    <h3 class="text-gray-600 font-lg text-semibold leading-6">Bienvenido: {{auth()->user()->tipo}} </h3>
     <p class="text-sm text-gray-500 hover:text-gray-600 leading-6">Descripcion breve del perfil
     </p>
 @endsection
-
+@section('navbar')
+    <li class="flex items-center py-3">
+        <span><a href="{{route('frontoffice.profesor.index')}}">Ver tus datos</a></span>
+    </li>
+    <li class="flex items-center py-3">
+        <span><a href="{{route('frontoffice.profesor.edit_password')}}">Cambiar contraseña</a></span>
+    </li>
+    <li class="flex items-center py-3">
+        <span><a href="{{route('frontoffice.profesor.edit',auth()->user()->id)}}">Editar datos del perfil</a></span>
+    </li>
+@endsection
+@section('suscripcion')
+    <li>
+        <div class="text-teal-600">Fecha de Registro </div>
+        <div class="text-gray-500 text-xs">{{$profesor->created_at}}</div>
+    </li>
+@endsection
 @section('content')
     <div class="w-full md:w-9/12 mx-2 h-64">
         <!-- Profile tab -->

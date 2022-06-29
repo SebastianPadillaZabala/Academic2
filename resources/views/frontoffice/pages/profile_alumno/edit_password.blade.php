@@ -6,11 +6,21 @@
              alt="">
     </div>
     <h1 class="text-gray-900 font-bold text-xl leading-8 my-1">{{auth()->user()->name}}</h1>
-    <h3 class="text-gray-600 font-lg text-semibold leading-6">Nombre de pila.</h3>
+    <h3 class="text-gray-600 font-lg text-semibold leading-6">Bienvenido: {{auth()->user()->tipo}} </h3>
     <p class="text-sm text-gray-500 hover:text-gray-600 leading-6">Descripcion breve del perfil
     </p>
 @endsection
-
+@section('navbar')
+    <li class="flex items-center py-3">
+        <span><a href="{{route('frontoffice.alumno.index')}}">Ver tus datos</a></span>
+    </li>
+    <li class="flex items-center py-3">
+        <span><a href="{{route('frontoffice.alumno.edit_password')}}">Cambiar contraseña</a></span>
+    </li>
+    <li class="flex items-center py-3">
+        <span><a href="{{route('frontoffice.alumno.edit',auth()->user()->id)}}">Editar datos del perfil</a></span>
+    </li>
+@endsection
 @section('content')
     <div class="w-full md:w-9/12 mx-2 h-64">
         <!-- Profile tab -->

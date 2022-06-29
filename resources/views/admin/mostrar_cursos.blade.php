@@ -61,7 +61,7 @@
                   </span>
                   <p>1:34:23 Minutes</p>
                 </div>
-                  <button type="submit" class="mt-4 text-xl w-full text-white bg-indigo-600 py-2 rounded-xl shadow-lg">Ver</button>
+                  <button class="mt-4 text-xl w-full text-white bg-indigo-600 py-2 rounded-xl shadow-lg">Ver</button>
               </div>
             </div>
             @endforeach

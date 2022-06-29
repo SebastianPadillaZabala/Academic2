@@ -20,7 +20,11 @@ class ProfesoresController extends Controller
      */
     public function index()
     {
-        //
+        $id = Auth()->user()->id;
+        $profesor = DB::select('SELECT * FROM profesores, users where profesores.id_user=users.id and users.id = '. $id);
+        return view('frontoffice.pages.profile_profesor.index',[
+            'profesor'=> $profesor[0]
+        ]);
     }
 
     /**
@@ -107,7 +111,7 @@ class ProfesoresController extends Controller
      */
     public function edit($id)
     {
-        //
+        return view('frontoffice.pages.profile_profesor.edit');
     }
 
     /**
@@ -119,7 +123,15 @@ class ProfesoresController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        DB::table('users')
+            ->where('id','=',$id)
+            ->update([
+                'name'=>$request->input('name'),
+                'apellido'=>$request->input('apellido'),
+                'celular'=>$request->input('celular'),
+                'email'=>$request->input('email'),
+            ]);
+        return redirect()->route('frontoffice.profesor.index');
     }
 
     /**

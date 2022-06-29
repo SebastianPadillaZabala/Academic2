@@ -55,7 +55,7 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    static public $atributos = ['name','email','apellido','celular','tipo',];
+    static public $atributos = ['name','email','apellido','celular','tipo'];
     /**
      * The accessors to append to the model's array form.
      *
@@ -107,7 +107,8 @@ class User extends Authenticatable
         $flag=false;
         $id = Auth()->user()->id;
         $curso = DB::select('SELECT id_curso FROM  cursos_alumnos, cursos, alumnos
-                      where cursos.id_curso=cursos_alumnos.curso_id and  alumnos.id_alum=cursos_alumnos.alumno_id and alumnos.id_user = '. $id);
+                      where cursos.id_curso=cursos_alumnos.curso_id and  alumnos.id_alum=cursos_alumnos.alumno_id
+                        and alumnos.id_user = '. $id);
         foreach ($curso as $c){
             if ($c->id_curso == $idc)
                 return true;

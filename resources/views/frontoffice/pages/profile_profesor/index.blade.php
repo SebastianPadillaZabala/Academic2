@@ -6,28 +6,29 @@
 
     <div class="image overflow-hidden">
         <img class="h-auto w-full mx-auto"
-             src="https://www.elperiodico.com/es/yotele/20211205/alvaro-morte-despide-profesor-casa-papel-netflix-12946000"
+             src="https://previews.123rf.com/images/yupiramos/yupiramos1711/yupiramos171108094/89817780-dise%C3%B1o-de-ilustraci%C3%B3n-de-vector-de-profesor-de-avatar-masculino-maestro.jpg"
              alt="">
     </div>
     <h1 class="text-gray-900 font-bold text-xl leading-8 my-1">{{$profesor->name}}</h1>
-    <h3 class="text-gray-600 font-lg text-semibold leading-6">Nombre de pila.</h3>
+    <h3 class="text-gray-600 font-lg text-semibold leading-6">Bienvenido: {{auth()->user()->tipo}} </h3>
     <p class="text-sm text-gray-500 hover:text-gray-600 leading-6">Descripcion breve del perfil
     </p>
 @endsection
 @section('navbar')
-   <!-- <li class="flex items-center py-3">
-        <span><a href=""></a></span>
+    <li class="flex items-center py-3">
+        <span><a href="{{route('frontoffice.profesor.index')}}">Ver tus datos</a></span>
     </li>
-    -->
+    <li class="flex items-center py-3">
+        <span><a href="{{route('frontoffice.profesor.edit_password')}}">Cambiar contraseña</a></span>
+    </li>
+    <li class="flex items-center py-3">
+        <span><a href="{{route('frontoffice.profesor.edit',auth()->user()->id)}}">Editar datos del perfil</a></span>
+    </li>
 @endsection
 @section('suscripcion')
     <li>
-        <div class="text-teal-600">Fecha de inicio suscripcion</div>
-        <div class="text-gray-500 text-xs">$alumno-> - Now</div>
-    </li>
-    <li>
-        <div class="text-teal-600">Fecha fin suscripcion</div>
-        <div class="text-gray-500 text-xs">March 2020 - Now</div>
+        <div class="text-teal-600">Fecha de Registro </div>
+        <div class="text-gray-500 text-xs">{{$profesor->created_at}}</div>
     </li>
 @endsection
 @section('content')
@@ -79,29 +80,9 @@
                                               d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
                                     </svg>
                                 </span>
-                        <span class="tracking-wide">Avance de tus cursos</span>
+                        <span class="tracking-wide">Tus cursos</span>
                 </div>
-            <div class="rounded-lg sahdow-lg flex justify-start flex-wrap">
-                @foreach($cursos as $curso)
-                   <div class="w-50 h-auto m-2 p-5 ">
-                        <div
-                        class="w-full bg-gray-900 rounded-lg sahdow-lg p-10 flex flex-col justify-center items-center"
-                    >
-                        <div class="mb-8">
-                            <div class="radial-progress bg-accent text-accent-content border-4 border-accent" style="--size:7rem; --value: {{$curso->progreso}}">
-                                {{$curso->progreso}}%
-                            </div>
-                        </div>
-                        <div class="text-center  flex-col  w-33">
-                            <p class="text-xl text-white font-bold mb-2">{{$curso->nombreCurso}}</p>
-                            <p class="text-base text-gray-400 font-normal">{{$curso->descripcion}}</p>
-                            <p class="text-base text-gray-400 font-normal">__________________</p>
-                            <button class=" w-3/12 h-41 mt-3 px-3 py-2 text-sm font-medium leading-5 text-center text-white transition-colors duration-200 transform bg-gray-500 rounded-md hover:bg-indigo-600 md:mx-2 md:w-auto">Continuar</button>
-                        </div>
-                    </div>
-                    </div>
-                @endforeach
-            </div>
+
         </div>
         <!-- End of profile_alumno tab -->
     </div>

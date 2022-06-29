@@ -21,15 +21,15 @@ class AlumnosController extends Controller
      */
     public function index()
     {
-        $id = Auth()->user()->id;
-        $alumno = DB::select('SELECT * FROM alumnos, users where alumnos.id_user=users.id and users.id = '. $id);
-        $curso = DB::select('SELECT * FROM  cursos_alumnos, cursos, alumnos
-                      where cursos.id_curso=cursos_alumnos.curso_id and  alumnos.id_alum=cursos_alumnos.alumno_id and alumnos.id_user = '. $id);
+            $id = Auth()->user()->id;
+            $alumno = DB::select('SELECT * FROM alumnos, users where alumnos.id_user=users.id and users.id = '. $id);
+            $curso = DB::select('SELECT * FROM  cursos_alumnos, cursos, alumnos
+                          where cursos.id_curso=cursos_alumnos.curso_id and  alumnos.id_alum=cursos_alumnos.alumno_id and alumnos.id_user = '. $id);
 
-        return view('frontoffice.pages.profile_alumno.index',[
-            'alumno'=> $alumno[0],
-            'cursos'=>$curso,
-        ]);
+            return view('frontoffice.pages.profile_alumno.index',[
+                'alumno'=> $alumno[0],
+                'cursos'=>$curso,
+            ]);
 
     }
 
@@ -168,5 +168,13 @@ class AlumnosController extends Controller
             'updated_at'=>Carbon::now('America/La_Paz')
         ]);
         return redirect()->back();
+    }
+    public function avanzar($id){
+        DB::table('cursos_alumnos')
+            ->where('id','=',$id)
+            ->update([
+                'progreso'=>10,
+            ]);
+        return redirect()->route('frontoffice.alumno.index');
     }
 }

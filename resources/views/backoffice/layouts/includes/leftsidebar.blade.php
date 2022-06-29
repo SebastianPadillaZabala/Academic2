@@ -7,9 +7,9 @@
                 </a>
             </div>
             <div class="mt-0 text-center">
-                
+
                     @yield('name')
-            
+
             </div>
             <ul class="space-y-2 tracking-wide mt-5">
             <li>
@@ -20,11 +20,11 @@
                         </svg>
                         <span class="group-hover:text-gray-700">Cursos</span>
                     </a>
-                @endif    
-               @if(auth()->user()->tipo != 'Administrador') 
-               <a href="{{route('categorias')}}" class="px-4 py-3 flex items-center space-x-4 rounded-md text-white group">
+                @endif
+               @if(auth()->user()->tipo != 'Administrador')
+               <a href="{{route('frontoffice.profesor.index')}}" class="px-4 py-3 flex items-center space-x-4 rounded-md text-white group">
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-                        <path class="fill-current text-gray-300 group-hover:text-cyan-300" fill-rule="evenodd" d="M12.075,10.812c1.358-0.853,2.242-2.507,2.242-4.037c0-2.181-1.795-4.618-4.198-4.618S5.921,4.594,5.921,6.775c0,1.53,0.884,3.185,2.242,4.037c-3.222,0.865-5.6,3.807-5.6,7.298c0,0.23,0.189,0.42,0.42,0.42h14.273c0.23,0,0.42-0.189,0.42-0.42C17.676,14.619,15.297,11.677,12.075,10.812 M6.761,6.775c0-2.162,1.773-3.778,3.358-3.778s3.359,1.616,3.359,3.778c0,2.162-1.774,3.778-3.359,3.778S6.761,8.937,6.761,6.775 
+                        <path class="fill-current text-gray-300 group-hover:text-cyan-300" fill-rule="evenodd" d="M12.075,10.812c1.358-0.853,2.242-2.507,2.242-4.037c0-2.181-1.795-4.618-4.198-4.618S5.921,4.594,5.921,6.775c0,1.53,0.884,3.185,2.242,4.037c-3.222,0.865-5.6,3.807-5.6,7.298c0,0.23,0.189,0.42,0.42,0.42h14.273c0.23,0,0.42-0.189,0.42-0.42C17.676,14.619,15.297,11.677,12.075,10.812 M6.761,6.775c0-2.162,1.773-3.778,3.358-3.778s3.359,1.616,3.359,3.778c0,2.162-1.774,3.778-3.359,3.778S6.761,8.937,6.761,6.775
                         M3.415,17.69c0.218-3.51,3.142-6.297,6.704-6.297c3.562,0,6.486,2.787,6.705,6.297H3.415z"></path>
                         </svg>
                         <span class="group-hover:text-gray-700">Mi Perfil</span>
@@ -35,7 +35,7 @@
                         </svg>
                         <span class="group-hover:text-gray-700">Mis Cursos</span>
                 </a>
-                @endif 
+                @endif
             </li>
             <li>
             @if(auth()->user()->tipo == 'Administrador')
@@ -47,21 +47,21 @@
                     </a>
                    <a href="{{route('backoffice.user.index')}}" class="px-4 py-2 flex items-center space-x-4 rounded-md text-white group">
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-                        <path class="fill-current text-gray-300 group-hover:text-cyan-300" fill-rule="evenodd" d="M12.075,10.812c1.358-0.853,2.242-2.507,2.242-4.037c0-2.181-1.795-4.618-4.198-4.618S5.921,4.594,5.921,6.775c0,1.53,0.884,3.185,2.242,4.037c-3.222,0.865-5.6,3.807-5.6,7.298c0,0.23,0.189,0.42,0.42,0.42h14.273c0.23,0,0.42-0.189,0.42-0.42C17.676,14.619,15.297,11.677,12.075,10.812 M6.761,6.775c0-2.162,1.773-3.778,3.358-3.778s3.359,1.616,3.359,3.778c0,2.162-1.774,3.778-3.359,3.778S6.761,8.937,6.761,6.775 
+                        <path class="fill-current text-gray-300 group-hover:text-cyan-300" fill-rule="evenodd" d="M12.075,10.812c1.358-0.853,2.242-2.507,2.242-4.037c0-2.181-1.795-4.618-4.198-4.618S5.921,4.594,5.921,6.775c0,1.53,0.884,3.185,2.242,4.037c-3.222,0.865-5.6,3.807-5.6,7.298c0,0.23,0.189,0.42,0.42,0.42h14.273c0.23,0,0.42-0.189,0.42-0.42C17.676,14.619,15.297,11.677,12.075,10.812 M6.761,6.775c0-2.162,1.773-3.778,3.358-3.778s3.359,1.616,3.359,3.778c0,2.162-1.774,3.778-3.359,3.778S6.761,8.937,6.761,6.775
                         M3.415,17.69c0.218-3.51,3.142-6.297,6.704-6.297c3.562,0,6.486,2.787,6.705,6.297H3.415z"></path>
                         </svg>
                         <span class="group-hover:text-gray-700">Usuarios</span>
                     </a>
                 @endif
-                @if(auth()->user()->tipo != 'Administrador') 
+                @if(auth()->user()->tipo != 'Administrador')
                 <a href="{{route('categorias')}}" class="px-4 py-3 flex items-center space-x-4 rounded-md text-white group">
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
                         <path class="fill-current text-gray-300 group-hover:text-cyan-600" d="M17.391,2.406H7.266c-0.232,0-0.422,0.19-0.422,0.422v3.797H3.047c-0.232,0-0.422,0.19-0.422,0.422v10.125c0,0.232,0.19,0.422,0.422,0.422h10.125c0.231,0,0.422-0.189,0.422-0.422v-3.797h3.797c0.232,0,0.422-0.19,0.422-0.422V2.828C17.812,2.596,17.623,2.406,17.391,2.406 M12.749,16.75h-9.28V7.469h3.375v5.484c0,0.231,0.19,0.422,0.422,0.422h5.483V16.75zM16.969,12.531H7.688V3.25h9.281V12.531z"></path>
                         </svg>
                         <span class="group-hover:text-gray-700">Categorias</span>
                     </a>
-                   
-                    @endif 
+
+                    @endif
             </li>
            @if(auth()->user()->tipo != 'Profesor')
            <li>

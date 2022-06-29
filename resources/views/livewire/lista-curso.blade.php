@@ -41,7 +41,9 @@
                   @csrf
                   <input type="hidden" name="curso_id" value="{{$c->id_curso}}">
                   <input type="hidden" name="alumno_id" value="{{auth()->user()->id}}">
-                  <button type="submit" class="mt-4 text-xl w-full text-white bg-indigo-400  py-2 rounded-xl shadow-lg">Agregar a mis cursos</button>
+                  <button type="submit" class="mt-4 text-xl w-full text-white bg-indigo-400  py-2 rounded-xl shadow-lg">
+                      Agregar a mis cursos
+                  </button>
                   @endif
             </form>
               <button class="mt-4 text-xl w-full text-white bg-indigo-600 py-2 rounded-xl shadow-lg"><a href="{{route('clase',[$c->id_curso])}}">Empezar</a></button>

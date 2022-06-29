@@ -4,15 +4,6 @@
         @yield('profile_data')
         <ul
             class="bg-gray-100 text-gray-600 hover:text-gray-700 hover:shadow py-2 px-3 mt-3 divide-y rounded shadow-sm">
-            <li class="flex items-center py-3">
-                <span><a href="{{route('frontoffice.alumno.index')}}">Ver tus datos</a></span>
-            </li>
-            <li class="flex items-center py-3">
-                <span><a href="{{route('frontoffice.alumno.edit_password')}}">Cambiar contraseña</a></span>
-            </li>
-            <li class="flex items-center py-3">
-                <span><a href="{{route('frontoffice.alumno.edit',auth()->user()->id)}}">Editar datos del perfil</a></span>
-            </li>
             @yield('navbar')
         </ul>
     </div>
