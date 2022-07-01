@@ -19,7 +19,8 @@ class preguntasController extends Controller
     {        
         $pregunta = new Pregunta();
         $pregunta->pregunta = $request->input('pregunta');
-        $pregunta->examen_id = DB::table('examenes')->max('id_examen');
+        $pregunta->examen_id = DB::table('examenes')->max('id_examen');   
+        $pregunta->tipo = $request->tipo;     
         $pregunta->save();
 
         if ($request->tipo == "falso") {
